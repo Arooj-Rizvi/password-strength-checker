@@ -54,6 +54,17 @@ def evaluate_password(pwd):
     else:
         feedback.append("Add a special character (e.g., @, #, $, !).")
 
+    # --- Rule 6: Common & Personal Name Check ---
+    # I added this rule because attackers always try common words first.
+    # Using your own name or simple words makes a password very easy to guess.
+    common_passwords = [
+        "password", "123456", "qwerty", "abc123", "letmein",
+        "welcome", "monkey", "dragon", "master", "sunshine",
+        "arooj", "admin", "login", "iloveyou", "pakistan"
+    ]
+    if pwd.lower() in common_passwords:
+        return "WEAK", ["This is a commonly used password. Attackers can guess it instantly. Please choose something unique."]
+
     # --- Strength Classification ---
     if score <= 3:
         strength = "WEAK"
